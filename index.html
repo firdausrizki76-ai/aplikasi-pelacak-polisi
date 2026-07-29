@@ -220,9 +220,14 @@
 
   <!-- Leaflet JS Library -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <!-- Supabase JS (Database Realtime) -->
-  <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <!-- Application Script -->
-  <script src="app.js"></script>
+  <!-- Supabase JS via ES Module -->
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+    window._supabaseCreateClient = createClient;
+    // Setelah library siap, load app.js
+    const script = document.createElement('script');
+    script.src = 'app.js';
+    document.body.appendChild(script);
+  </script>
 </body>
 </html>

@@ -9,7 +9,7 @@
 const SUPABASE_URL = 'https://lqtoxnyeqhyfgbkyimpj.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxxdG94bnllcWh5Zmdia3lpbXBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUzMTU4MzYsImV4cCI6MjEwMDg5MTgzNn0.-xDoNooZOnTmQB1CcoeW6JhDvXFDSa88n8HBq1ZC6uM';
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabase = window._supabaseCreateClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ==========================================
 // STATE
@@ -28,7 +28,8 @@ const STATE = {
 // ==========================================
 // 1. INIT
 // ==========================================
-document.addEventListener('DOMContentLoaded', () => {
+// Langsung jalankan karena app.js dimuat setelah DOM & Supabase siap
+(function init() {
   initUrlParams();
   initMaps();
   loadLocationsFromDB();
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const savedTheme = localStorage.getItem('loc_sender_theme') || 'dark';
   document.documentElement.setAttribute('data-theme', savedTheme);
-});
+})();
 
 function initUrlParams() {
   const params = new URLSearchParams(window.location.search);
