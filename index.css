@@ -282,16 +282,14 @@ body {
 .payment-card {
   max-width: 480px;
   width: 100%;
-  background: var(--glass-bg);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  padding: 3rem 2.5rem;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2.5rem 1.75rem 2rem;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
   text-align: center;
   position: relative;
   overflow: hidden;
+  color: #1e293b;
 }
 
 .payment-card::before {
@@ -301,39 +299,150 @@ body {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #10b981, #059669, #00f2fe);
+  background: linear-gradient(90deg, #38bdf8, #0ea5e9, #0284c7);
 }
 
-.payment-shield-icon {
-  width: 68px;
-  height: 68px;
-  margin: 0 auto 1.5rem;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(0, 242, 254, 0.15));
-  border: 1px solid rgba(16, 185, 129, 0.4);
+/* Receipt Logo */
+.receipt-logo {
+  margin-bottom: 0.5rem;
+}
+
+.receipt-logo-circle {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  color: #10b981;
-  box-shadow: 0 0 25px rgba(16, 185, 129, 0.2);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.35);
 }
 
-.payment-title {
+.receipt-label {
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.receipt-amount {
   font-family: var(--font-heading);
-  font-size: 1.85rem;
+  font-size: 2.2rem;
   font-weight: 800;
-  color: var(--text-primary);
-  margin-bottom: 0.75rem;
+  color: #0f172a;
+  margin-bottom: 1.75rem;
   letter-spacing: -0.02em;
 }
 
-.payment-subtitle {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 2.5rem;
+/* Receipt Detail Table */
+.receipt-details {
+  text-align: left;
+  border-top: 1px solid #e2e8f0;
 }
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f1f5f9;
+  gap: 1rem;
+}
+
+.receipt-row:last-child {
+  border-bottom: none;
+}
+
+.receipt-key {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  flex-shrink: 0;
+  min-width: 100px;
+}
+
+.receipt-value {
+  font-size: 0.9rem;
+  color: #1e293b;
+  text-align: right;
+  word-break: break-word;
+}
+
+.receipt-value strong {
+  font-weight: 700;
+}
+
+.receipt-mono {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
+.receipt-user {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.receipt-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.receipt-user div:last-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.receipt-user strong {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.receipt-sub {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  display: block;
+}
+
+/* Receipt Note */
+.receipt-note {
+  text-align: left;
+  background: #f8fafc;
+  border-left: 3px solid #e2e8f0;
+  border-radius: 0 8px 8px 0;
+  padding: 0.85rem 1rem;
+  margin: 1.25rem 0 1.5rem;
+}
+
+.receipt-note-label {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.receipt-note-text {
+  font-size: 0.85rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
 
 .payment-button-area {
   margin-bottom: 2rem;
@@ -341,17 +450,17 @@ body {
 
 .btn-pay-action {
   width: 100%;
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
   color: #fff;
   font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 800;
   letter-spacing: 0.05em;
   border: none;
   border-radius: var(--radius-full);
-  padding: 1.25rem 2rem;
+  padding: 1.15rem 2rem;
   cursor: pointer;
-  box-shadow: 0 12px 35px -5px rgba(16, 185, 129, 0.45);
+  box-shadow: 0 10px 30px -5px rgba(14, 165, 233, 0.45);
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: flex;
   align-items: center;
@@ -361,7 +470,7 @@ body {
 
 .btn-pay-action:hover {
   transform: translateY(-3px);
-  box-shadow: 0 18px 40px -5px rgba(16, 185, 129, 0.65);
+  box-shadow: 0 14px 35px -5px rgba(14, 165, 233, 0.65);
 }
 
 .btn-pay-action:active {

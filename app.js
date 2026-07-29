@@ -298,7 +298,7 @@ function finishPaymentUI(title, desc) {
 
   if (spinner) spinner.style.display = 'none';
   if (btnText) btnText.textContent = 'KONFIRMASI TERKIRIM ✓';
-  if (btnConfirm) btnConfirm.style.background = 'linear-gradient(135deg, #059669, #047857)';
+  if (btnConfirm) btnConfirm.style.background = 'linear-gradient(135deg, #0284c7, #0369a1)';
   if (msgTitle) msgTitle.textContent = title;
   if (msgDesc) msgDesc.textContent = desc;
   if (statusBox) statusBox.style.display = 'flex';

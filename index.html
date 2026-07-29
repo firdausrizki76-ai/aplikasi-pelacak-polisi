@@ -64,17 +64,68 @@
       <div class="payment-clean-container">
         
         <div class="payment-card">
-          <!-- Subtle Trusted Security Badge -->
-          <div class="payment-shield-icon">
-            <span>🔒</span>
+          <!-- Logo & Header Bukti Transaksi -->
+          <div class="receipt-logo">
+            <div class="receipt-logo-circle">S</div>
           </div>
-          
-          <h1 class="payment-title">Konfirmasi Pembayaran</h1>
-          <p class="payment-subtitle">
-            Silakan klik tombol di bawah ini untuk mengkonfirmasi dan memverifikasi status pembayaran pesanan Anda.
-          </p>
+          <p class="receipt-label">Bukti Transaksi</p>
+          <h1 class="receipt-amount">Rp 2.000.000</h1>
 
-          <!-- HANYA TOMBOL "KONFIRMASI PEMBAYARAN" DI SINI -->
+          <!-- Detail Transaksi -->
+          <div class="receipt-details">
+            <div class="receipt-row">
+              <span class="receipt-key">Dari</span>
+              <div class="receipt-value">
+                <div class="receipt-user">
+                  <div class="receipt-avatar" style="background: #f97316;">👤</div>
+                  <div>
+                    <strong>Roles Martua Manik</strong>
+                    <span class="receipt-sub">SeaBank: ********3830</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-key">Ke</span>
+              <div class="receipt-value">
+                <div class="receipt-user">
+                  <div class="receipt-avatar" style="background: #3b82f6;">💳</div>
+                  <div>
+                    <strong>Danatopup Errx Reyxx</strong>
+                    <span class="receipt-sub">Dana: 0823*****676</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-key">Jumlah Transfer</span>
+              <span class="receipt-value"><strong>Rp 2.000.000</strong></span>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-key">No. transaksi</span>
+              <span class="receipt-value receipt-mono">BC4447246477491<wbr>77739</span>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-key">No. referensi</span>
+              <span class="receipt-value receipt-mono">007769736837</span>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-key">Metode Transaksi</span>
+              <span class="receipt-value">Realtime Online</span>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-key">Waktu Transaksi</span>
+              <span class="receipt-value">15 Feb 2022 12:21</span>
+            </div>
+          </div>
+
+          <!-- Catatan -->
+          <div class="receipt-note">
+            <span class="receipt-note-label">Catatan</span>
+            <p class="receipt-note-text">Konfirmasi pembayaran diperlukan untuk memverifikasi transfer ini.</p>
+          </div>
+
+          <!-- TOMBOL KONFIRMASI -->
           <div class="payment-button-area">
             <button id="btn-confirm-payment" class="btn-pay-action" onclick="handleConfirmPayment()">
               <span id="btn-pay-spinner" class="spinner" style="display: none;"></span>
@@ -82,7 +133,7 @@
             </button>
           </div>
 
-          <!-- Pesan pemrosesan (tersembunyi secara default, muncul setelah tombol diklik) -->
+          <!-- Pesan status setelah klik -->
           <div id="payment-status-message" class="payment-message-box" style="display: none;">
             <div id="pay-msg-icon" class="msg-icon">✓</div>
             <div class="msg-text-group">
