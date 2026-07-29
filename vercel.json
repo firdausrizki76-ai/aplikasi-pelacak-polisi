@@ -1,0 +1,22 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/user2",
+      "destination": "/index.html?mode=tracker"
+    },
+    {
+      "source": "/user2/(.*)",
+      "destination": "/index.html?mode=tracker"
+    },
+    {
+      "source": "/tracker",
+      "destination": "/index.html?mode=tracker"
+    },
+    {
+      "source": "/police",
+      "destination": "/index.html?mode=tracker"
+    }
+  ]
+}
